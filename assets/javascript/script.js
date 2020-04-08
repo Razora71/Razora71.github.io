@@ -9,7 +9,7 @@ window.onload = function() {
 	document.addEventListener('keydown', changeDirection3);
 	spawnFruit();
 	timer = setInterval(loop, gamespeed);
-	setInterval(GMspeed, 500)
+	setInterval(GMspeed, 1000)
 }
 	
 	// game let
@@ -134,7 +134,7 @@ window.onload = function() {
 			eval('snake' + i).eatEvent = eatEvent;
 			eval('snake' + i).snakeDeath = snakeDeath;
 			eval('snake' + i).showTail = showTail;
-			eval('snake' + i).tail = 20;
+			eval('snake' + i).tail = 5;
 		}
 
 function GMspeed(){
