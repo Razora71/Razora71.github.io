@@ -138,7 +138,11 @@ window.onload = function() {
 		}
 
 function GMspeed(){
-	gamespeed--;
+	if(gamespeed > 50)
+	{
+		gamespeed--;
+	}
+	
 }
 
 function game()
