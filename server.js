@@ -1,4 +1,4 @@
-import io from 'https://cdn.jsdelivr.net/npm/socket.io-client@2/dist/socket.io.js';
+//import io from 'https://cdn.jsdelivr.net/npm/socket.io-client@2/dist/socket.io.js';
 
 
 var express = require('express'); // Express contains some boilerplate to for routing and such
