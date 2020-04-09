@@ -1,25 +1,35 @@
-let socket = new WebSocket("wss://razora71.github.io");
+const http = require('http');
+const ws = require('ws');
 
-socket.onopen = function(e) {
-  alert("[open] Соединение установлено");
-  alert("Отправляем данные на сервер");
-  socket.send("Меня зовут Джон");
-};
+const wss = new ws.Server({noServer: true});
 
-socket.onmessage = function(event) {
-  alert(`[message] Данные получены с сервера: ${event.data}`);
-};
-
-socket.onclose = function(event) {
-  if (event.wasClean) {
-    alert(`[close] Соединение закрыто чисто, код=${event.code} причина=${event.reason}`);
-  } else {
-    // например, сервер убил процесс или сеть недоступна
-    // обычно в этом случае event.code 1006
-    alert('[close] Соединение прервано');
+function accept(req, res) {
+  // все входящие запросы должны использовать websockets
+  if (!req.headers.upgrade || req.headers.upgrade.toLowerCase() != 'websocket') {
+    res.end();
+    return;
   }
-};
 
-socket.onerror = function(error) {
-  alert(`[error] ${error.message}`);
-};
+  // может быть заголовок Connection: keep-alive, Upgrade
+  if (!req.headers.connection.match(/\bupgrade\b/i)) {
+    res.end();
+    return;
+  }
+
+  wss.handleUpgrade(req, req.socket, Buffer.alloc(0), onConnect);
+}
+
+function onConnect(ws) {
+  ws.on('message', function (message) {
+    let name = message.match(/([\p{Alpha}\p{M}\p{Nd}\p{Pc}\p{Join_C}]+)$/gu) || "Гость";
+    ws.send(`Привет с сервера, ${name}!`);
+
+    setTimeout(() => ws.close(1000, "Пока!"), 5000);
+  });
+}
+
+if (!module.parent) {
+  http.createServer(accept).listen(8080);
+} else {
+  exports.accept = accept;
+}
