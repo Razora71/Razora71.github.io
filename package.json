@@ -1,0 +1,9 @@
+{
+	"name": "snake-game",
+	"version": "0.0.1",
+	"description": "just a snake game",
+	"dependencies": {
+		"express": "^4.17.1",
+		"socket.io": "^2.3.0"
+	}
+}
