@@ -11,6 +11,8 @@ window.onload = function() {
 	timer = setInterval(loop, gamespeed);
 	setInterval(GMspeed, 1000)
 }
+
+
 	
 	// game let
 
@@ -182,6 +184,7 @@ function loop() {
 
 	game();
 	snake();
+	let socket = io('http://localhost:5000');
 
 }
 
