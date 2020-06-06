@@ -184,7 +184,6 @@ function loop() {
 
 	game();
 	snake();
-	let socket = io('http://localhost:5000');
 
 }
 
